@@ -8,25 +8,26 @@
     :root{--bg:#071022;--card:#0b1a2b;--accent:#22c55e;--muted:#94a3b8}
     html,body{height:100%;margin:0}
     body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#020617 0%, #071022 100%);color:#e6eef6}
-    .card{width:min(720px,94%);background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-    header{display:flex;align-items:center;gap:16px}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#0ea5a3,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700}
-    h1{font-size:1.25rem;margin:0}
-    .meta{color:var(--muted);font-size:0.9rem}
-    .prices{display:flex;gap:28px;margin-top:18px;align-items:baseline;flex-wrap:wrap}
-    .price-box{background:var(--card);padding:14px;border-radius:10px;min-width:160px}
-    .label{font-size:0.85rem;color:var(--muted)}
-    .value{font-size:1.6rem;font-weight:700;color:var(--accent);margin-top:6px}
-    .small{font-size:0.9rem;color:var(--muted);margin-top:8px}
-    .updated{margin-top:14px;color:var(--muted);font-size:0.85rem}
+    .card{width:min(720px,94%);background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:40px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .logo{width:72px;height:72px;border-radius:10px;background:url('vetf-logo.png') center/cover no-repeat}
+    h1{font-size:1.8rem;margin:0}
+    .meta{color:var(--muted);font-size:1rem}
+    .prices{display:flex;gap:28px;margin-top:20px;align-items:center;flex-wrap:wrap}
+    .price-box{background:var(--card);padding:20px;border-radius:10px;min-width:200px;text-align:center}
+    .label{font-size:1rem;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:8px}
+    .value{font-size:2.2rem;font-weight:700;color:var(--accent);margin-top:10px}
+    .small{font-size:1rem;color:var(--muted);margin-top:8px}
+    .updated{margin-top:14px;color:var(--muted);font-size:1rem}
     .error{color:#ff7b7b}
     @media (max-width:420px){.prices{flex-direction:column}}
+    .icon{width:24px;height:24px}
   </style>
 </head>
 <body>
   <div class="card">
     <header>
-      <div class="logo">VETF</div>
+      <div class="logo"></div>
       <div>
         <h1>VETF — aktueller Kurs</h1>
         <div class="meta">Preis in CRO + USD</div>
@@ -35,12 +36,12 @@
 
     <div class="prices">
       <div class="price-box">
-        <div class="label">Preis (CRO)</div>
+        <div class="label"><img src="cro-icon.png" alt="CRO" class="icon"> Preis (CRO)</div>
         <div id="cro" class="value">Lade…</div>
       </div>
 
       <div class="price-box">
-        <div class="label">Preis (USD)</div>
+        <div class="label"><img src="usd-icon.png" alt="USD" class="icon"> Preis (USD)</div>
         <div id="usd" class="value">Lade…</div>
       </div>
     </div>
@@ -62,10 +63,9 @@
         const usd = Number(data.vetf_usd);
         const updated = data.updated ? new Date(data.updated) : new Date();
 
-        document.getElementById('cro').textContent = isFinite(cro) ? cro.toFixed(4) + ' CRO' : 'n/a';
-        document.getElementById('usd').textContent = isFinite(usd) ? usd.toFixed(4) + ' USD' : 'n/a';
+        document.getElementById('cro').textContent = isFinite(cro) ? cro.toFixed(8) + ' CRO' : 'n/a';
+        document.getElementById('usd').textContent = isFinite(usd) ? usd.toFixed(8) + ' USD' : 'n/a';
 
-        // Anzeige in deutscher Lokalzeit (Europe/Berlin)
         try{
           document.getElementById('updated').textContent = 'Letztes Update: ' + updated.toLocaleString('de-DE', {timeZone: 'Europe/Berlin'});
         }catch(e){
@@ -80,7 +80,6 @@
     }
 
     fetchPrice();
-    // optional: alle 60 Sekunden aktualisieren
     setInterval(fetchPrice, 60_000);
   </script>
 </body>
