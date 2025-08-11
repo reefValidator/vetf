@@ -67,9 +67,9 @@
         document.getElementById('usd').textContent = isFinite(usd) ? usd.toFixed(8) + ' USD' : 'n/a';
 
         try{
-          document.getElementById('updated').textContent = 'Letztes Update: ' + updated.toLocaleString('de-DE', {timeZone: 'Europe/Berlin'});
+          document.getElementById('updated').textContent = 'Updated: ' + updated.toLocaleString('de-DE', {timeZone: 'Europe/Berlin'});
         }catch(e){
-          document.getElementById('updated').textContent = 'Letztes Update: ' + updated.toLocaleString();
+          document.getElementById('updated').textContent = 'Updated: ' + updated.toLocaleString();
         }
       }catch(err){
         console.error(err);
